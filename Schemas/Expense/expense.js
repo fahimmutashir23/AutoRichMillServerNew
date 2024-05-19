@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 
 const expenseSchema = new mongoose.Schema({
@@ -6,10 +7,18 @@ const expenseSchema = new mongoose.Schema({
         type: String,
         required : true
     },
+    category: {
+        type: Schema.Types.ObjectId,
+        required : true
+    },
     amount: {
         type: Number,
         required : true
     },
+    date: {
+        type: Date,
+        default: Date.now()
+    }
 })
 
-module.exports = expenseSchema;
+module.exports = mongoose.model("Expense", expenseSchema);

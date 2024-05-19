@@ -1,9 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose")
 const router = express.Router();
 const loginCheck = require("../../Middleware/checkLogin");
-const expenseSchema = require("../../Schemas/Expense/expense");
-const Expense = new mongoose.model("Expense", expenseSchema);
+const Expense = require('../../Schemas/Expense/expense');
 
 router.get("/get-expense-list", loginCheck, async (req, res) => {});
 
@@ -20,5 +18,11 @@ router.post("/create-expense",  async (req, res) => {
     res.json(error)
   }
 });
+
+router.get("/update-expense", loginCheck, async (req, res) => {});
+
+router.get("/delete-expense", loginCheck, async (req, res) => {});
+
+
 
 module.exports = router

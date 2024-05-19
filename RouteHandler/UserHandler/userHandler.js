@@ -1,48 +1,15 @@
 const express = require("express");
-const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const loginCheck = require("../../Middleware/checkLogin");
-const userSchema = require("../../Schemas/User/updateUser");
-const User = new mongoose.model("User", userSchema);
+const User = require('../../Schemas/User/userSchema');
 
 const createJwtToken = (email) => {
   const token = jwt.sign({ email }, process.env.SECRET_KEY, {
-    expiresIn: "1h",
+    expiresIn: "100h",
   });
   return token;
 };
-
-router.get('/auth', async (req, res) => {
-  try {
-    const { email, password } = req.query;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
-    }
-
-    const user = await User.findOne({email: email});
-    console.log(user.name, user.password, user);
-
-    if (user) {
-      if (user.password == password) {
-        const token = createJwtToken(email);
-        return res.status(201).json({
-          message: 'Login Successfully',
-          user: { email: user.email, name: user.name },
-          token,
-        });
-      } else {
-        return res.status(401).json({ message: 'Email and password do not match' });
-      }
-    } else {
-      return res.status(404).json({ message: 'User not found' });
-    }
-  } catch (error) {
-    console.error('Error during authentication:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
 
 router.get("/get-users", loginCheck,  async (req, res) => {
   const email = req.query.email;
@@ -80,6 +47,36 @@ router.post("/create-users", async (req, res) => {
     });
   } catch (error) {
     res.json(error.message);
+  }
+});
+
+router.get('/auth', async (req, res) => {
+  try {
+    const { email, password } = req.query;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    
+    const user = await User.findOne({email: email});
+    if (!user) {
+      return res.status(400).json('Invalid username or password');
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json('Invalid username or password');
+    } else {
+      const token = createJwtToken(email);
+      return res.status(201).json({
+        message: 'Login Successfully',
+        user: { email: user.email, name: user.name },
+        token,
+      });
+    }
+  } catch (error) {
+    console.error('Error during authentication:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
