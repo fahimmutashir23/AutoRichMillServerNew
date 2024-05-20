@@ -7,6 +7,7 @@ const port = process.env.PORT || 5000;
 const userHandler = require("./RouteHandler/UserHandler/userHandler");
 const expenseHandler = require("./RouteHandler/ExpenseHandler/expenseHandler");
 const categoryHandler = require("./RouteHandler/CategoryHandler/categoryHandler");
+const clientHandler = require("./RouteHandler/ClientHandler/clientHandler");
 
 require("dotenv").config();
 
@@ -21,6 +22,7 @@ mongoose
 app.use("/api", userHandler);
 app.use("/api", expenseHandler);
 app.use("/api", categoryHandler);
+app.use("/api", clientHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
