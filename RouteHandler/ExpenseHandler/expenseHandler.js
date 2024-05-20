@@ -1,57 +1,73 @@
 const express = require("express");
 const router = express.Router();
 const loginCheck = require("../../Middleware/checkLogin");
-const Expense = require('../../Schemas/Expense/expense');
-const Category = require('../../Schemas/Category/category');
+const Expense = require("../../Schemas/Expense/expense");
 
-
-router.post("/create-expense", loginCheck,  async (req, res) => {
+router.get("/get-expense-list", async (req, res) => {
   try {
-  const newExpense = req.body;
-  const id = newExpense.category
-  const filter = {_id: id}
-  
-    const getCategory = await Category.findOne(filter)
-
-    if (!getCategory) {
-      return res.status(404).json({
-        status_code: 404,
-        message: "Category not found",
-      });
-    }
-
-    const saveCategory = {
-      amount: parseFloat(newExpense.amount),
-      category: getCategory.name,
-      name: newExpense.name,
-      date: newExpense.date
-    }
-
-    const newSaveExpense = new Expense(saveCategory)
-    
-    const result = await newSaveExpense.save();
+    const result = await Expense.find();
     res.json({
+      status_code: 200,
+      message: "Successfully Loaded Data",
+      result: result,
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post("/create-expense", async (req, res) => {
+  const newExpense = new Expense(req.body);
+  console.log(newExpense);
+  try {
+    const result = newExpense.save();
+    res.json({
+      id: result._id,
+      message: "Expense Create Successfully",
       status_code: 200,
       message: "Expense Create Successfully",
       result: result,
     });
   } catch (error) {
-    res.json(error)
+    console.log(error);
+    res.json(error);
   }
 });
 
-router.get("/get-expense-list", loginCheck, async (req, res) => {
-
+//update
+router.patch("/update-expense/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const result = await Expense.findByIdAndUpdate(id, updates, { new: true });
+    if (!result) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
+    res.json({
+      status_code: 200,
+      message: "Expense Updated Successfully",
+      result: result,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-router.put("/update-expense", loginCheck, async (req, res) => {
-  
+// Delete
+router.delete("/delete-expense/:id", loginCheck, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await Expense.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
+    res.json({
+      status_code: 200,
+      message: "Expense Deleted Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-router.delete("/delete-expense", loginCheck, async (req, res) => {
-  
-});
-
-
-
-module.exports = router
+module.exports = router;
