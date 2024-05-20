@@ -13,6 +13,7 @@ const serviceHandler = require("./RouteHandler/ServiceCategoryHandler/serviceLis
 const branchHandler = require("./RouteHandler/BranchHandler/branchHandler");
 const providerHandler = require("./RouteHandler/ProviderHandler/provider");
 const paymentHandler = require("./RouteHandler/PaymentTypeHandler/paymentType");
+const invoiceTermsHandler = require("./RouteHandler/InvoiceTermsHandler/invoiceTerms");
 require("dotenv").config();
 app.use("/images", express.static("images"));
 app.use(express.json());
@@ -32,6 +33,8 @@ app.use("/api", serviceHandler);
 app.use("/api", branchHandler);
 app.use("/api", providerHandler);
 app.use("/api", paymentHandler);
+app.use("/api", invoiceTermsHandler);
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
