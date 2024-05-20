@@ -7,6 +7,7 @@ router.post("/create-category", loginCheck, async (req, res) => {
   const newProduct = new Category(req.body);
   try {
     const result = await newProduct.save();
+    console.log(result);
     res.json({
       status_code: 200,
       message: "Category Create Successfully",
