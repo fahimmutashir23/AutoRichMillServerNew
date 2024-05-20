@@ -9,6 +9,7 @@ const expenseHandler = require("./RouteHandler/ExpenseHandler/expenseHandler");
 const categoryHandler = require("./RouteHandler/CategoryHandler/categoryHandler");
 const clientHandler = require("./RouteHandler/ClientHandler/clientHandler");
 const serviceCategoryHandler = require("./RouteHandler/ServiceCategoryHandler/serviceCategoryHandler");
+const serviceHandler = require("./RouteHandler/ServiceCategoryHandler/serviceList");
 require("dotenv").config();
 
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/api", expenseHandler);
 app.use("/api", categoryHandler);
 app.use("/api", clientHandler);
 app.use("/api", serviceCategoryHandler);
+app.use("/api", serviceHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
