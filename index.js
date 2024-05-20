@@ -11,8 +11,9 @@ const clientHandler = require("./RouteHandler/ClientHandler/clientHandler");
 const serviceCategoryHandler = require("./RouteHandler/ServiceCategoryHandler/serviceCategoryHandler");
 const serviceHandler = require("./RouteHandler/ServiceCategoryHandler/serviceList");
 const branchHandler = require("./RouteHandler/BranchHandler/branchHandler");
+const providerHandler = require("./RouteHandler/ProviderHandler/provider");
 require("dotenv").config();
-
+app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(cors());
 
@@ -28,7 +29,7 @@ app.use("/api", clientHandler);
 app.use("/api", serviceCategoryHandler);
 app.use("/api", serviceHandler);
 app.use("/api", branchHandler);
-
+app.use("/api", providerHandler);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
