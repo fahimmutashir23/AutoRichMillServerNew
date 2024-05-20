@@ -18,7 +18,6 @@ router.get("/get-expense-list", async (req, res) => {
 
 router.post("/create-expense", async (req, res) => {
   const newExpense = new Expense(req.body);
-  console.log(newExpense);
   try {
     const result = newExpense.save();
     res.json({
