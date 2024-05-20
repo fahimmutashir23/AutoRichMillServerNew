@@ -3,7 +3,7 @@ const router = express.Router();
 const loginCheck = require("../../Middleware/checkLogin");
 const Client = require("../../Schemas/Client/client");
 
-router.get("/get-client-list", async (req, res) => {
+router.get("/get-client-list", loginCheck, async (req, res) => {
   try {
     const result = await Client.find();
     //send response
@@ -17,7 +17,7 @@ router.get("/get-client-list", async (req, res) => {
   }
 });
 
-router.post("/create-client", async (req, res) => {
+router.post("/create-client", loginCheck, async (req, res) => {
   const newClient = new Client(req.body);
   console.log(newClient);
   try {
@@ -34,7 +34,7 @@ router.post("/create-client", async (req, res) => {
 });
 
 //update
-router.patch("/update-client/:id", async (req, res) => {
+router.patch("/update-client/:id", loginCheck, async (req, res) => {
   try {
     const id = req.params.id;
     const updates = req.body;
@@ -53,7 +53,7 @@ router.patch("/update-client/:id", async (req, res) => {
 });
 
 // Delete
-router.delete("/delete-client/:id", async (req, res) => {
+router.delete("/delete-client/:id", loginCheck, async (req, res) => {
   try {
     const id = req.params.id;
     const result = await Client.findByIdAndDelete(id);

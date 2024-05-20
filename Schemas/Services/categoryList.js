@@ -9,6 +9,10 @@ const servicesCategorySchema = new mongoose.Schema({
     type: String,
     default: "active",
   },
+  date: {
+    type: Date,
+    default: new Date.now()
+  }
 });
 
 module.exports = mongoose.model("ServiceCategory", servicesCategorySchema);

@@ -17,6 +17,10 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: Date,
+    default: new Date.now()
+  }
 });
 
 module.exports = mongoose.model("Client", clientSchema);
