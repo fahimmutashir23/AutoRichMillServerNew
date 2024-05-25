@@ -11,8 +11,8 @@ const servicesCategorySchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: new Date.now()
-  }
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("ServiceCategory", servicesCategorySchema);
