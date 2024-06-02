@@ -16,6 +16,7 @@ router.get("/get-payment-list", async (req, res) => {
     res.json(error);
   }
 });
+
 router.get("/get-single-payment/:id", async (req, res) => {
   const id = req.params.id;
   const filter = { _id: id };
@@ -30,6 +31,7 @@ router.get("/get-single-payment/:id", async (req, res) => {
     res.json(error);
   }
 });
+
 router.post("/create-paymentType", async (req, res) => {
   const newPayment = new Payment(req.body);
   console.log(newPayment);

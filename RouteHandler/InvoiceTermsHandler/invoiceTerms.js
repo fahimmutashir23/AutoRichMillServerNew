@@ -16,6 +16,7 @@ router.get("/get-invoiceTerms", async (req, res) => {
     res.json(error);
   }
 });
+
 router.get("/get-single-invoiceTerms/:id", async (req, res) => {
   const id = req.params.id;
   const filter = { _id: id };
@@ -30,6 +31,7 @@ router.get("/get-single-invoiceTerms/:id", async (req, res) => {
     res.json(error);
   }
 });
+
 router.post("/create-invoiceTerms", async (req, res) => {
   const newInvoiceTerms = new InvoiceTerms(req.body);
   console.log(newInvoiceTerms);
@@ -46,7 +48,6 @@ router.post("/create-invoiceTerms", async (req, res) => {
   }
 });
 
-//update
 router.patch("/update-invoiceTerms/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -67,7 +68,6 @@ router.patch("/update-invoiceTerms/:id", async (req, res) => {
   }
 });
 
-// Delete
 router.delete("/delete-invoiceTerms/:id", async (req, res) => {
   try {
     const id = req.params.id;

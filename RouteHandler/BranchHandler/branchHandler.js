@@ -46,7 +46,6 @@ router.get("/get-single-branch/:id", async (req, res) => {
   }
 });
 
-//update
 router.patch("/update-branch/:id", async (req, res) => {
   try {
     const id = req.params.id;
