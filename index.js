@@ -17,15 +17,17 @@ const invoiceTermsHandler = require("./RouteHandler/InvoiceTermsHandler/invoiceT
 const supplierHandler = require("./RouteHandler/ProductManagementHandler/supplier");
 const productCategoryHandler = require("./RouteHandler/ProductManagementHandler/productCategory");
 const productListHandler = require("./RouteHandler/ProductManagementHandler/productList");
+const PurchaseProductHandler = require("./RouteHandler/ProductManagementHandler/purchaseProduct");
+const InvoiceHandler = require("./RouteHandler/InvoiceHandler/Invoice");
 require("dotenv").config();
 app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect(process.env.CONNECTION_URI)
-  .then(() => console.log("Database Connect Successfully"))
-  .catch((err) => console.log(err));
+    .connect(process.env.CONNECTION_URI)
+    .then(() => console.log("Database Connect Successfully"))
+    .catch((err) => console.log(err));
 
 app.use("/api", userHandler);
 app.use("/api", expenseHandler);
@@ -40,11 +42,13 @@ app.use("/api", invoiceTermsHandler);
 app.use("/api", supplierHandler);
 app.use("/api", productCategoryHandler);
 app.use("/api", productListHandler);
+app.use("/api", PurchaseProductHandler);
+app.use("/api", InvoiceHandler);
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+    res.send("Hello World!");
 });
 
 app.listen(port, () => {
-  console.log(`Mill is running on port ${port}`);
+    console.log(`Mill is running on port ${port}`);
 });
