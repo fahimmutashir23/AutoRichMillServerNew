@@ -16,11 +16,7 @@ const clientSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-  },
-  date: {
-    type: Date,
-    default: new Date.now()
   }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model("Client", clientSchema);

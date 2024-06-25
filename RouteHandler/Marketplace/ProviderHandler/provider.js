@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Provider = require("../../Schemas/Provider/provider");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Provider = require("../../../Schemas/Provider/provider");
 const multer = require("multer");
 const path = require("path");
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Category = require("../../Schemas/Category/category");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Category = require("../../../Schemas/Category/category");
 
 router.post("/create-category", loginCheck, async (req, res) => {
   const newProduct = new Category(req.body);

@@ -24,12 +24,8 @@ const userSchema = new mongoose.Schema({
     role : {
         type: String,
         required: [true, 'Please Enter Your Role']
-    },
-    date: {
-        type: Date,
-        default: Date.now()
     }
-})
+}, {timestamps: true})
 
 
 userSchema.pre('save', async function(next) {

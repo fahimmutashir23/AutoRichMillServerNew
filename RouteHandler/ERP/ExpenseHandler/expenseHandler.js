@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Expense = require("../../Schemas/Expense/expense");
-const ExpenseCategory = require("../../Schemas/Expense/category");
-const ExpenseReceipt = require("../../Schemas/Expense/Receipt");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Expense = require("../../../Schemas/Expense/expense");
+const ExpenseCategory = require("../../../Schemas/Expense/category");
+const ExpenseReceipt = require("../../../Schemas/Expense/Receipt");
 
 router.get("/get-expense-list", async (req, res) => {
   try {

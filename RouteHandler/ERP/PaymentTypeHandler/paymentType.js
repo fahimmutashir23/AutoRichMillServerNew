@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Payment = require("../../Schemas/PaymentType/paymentType");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Payment = require("../../../Schemas/PaymentType/paymentType");
 
 router.get("/get-payment-list", async (req, res) => {
   try {

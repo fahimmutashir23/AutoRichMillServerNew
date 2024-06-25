@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const InvoiceTerms = require("../../Schemas/InvoiceTerms/invoiceTerms");
+const loginCheck = require("../../../Middleware/checkLogin");
+const InvoiceTerms = require("../../../Schemas/InvoiceTerms/invoiceTerms");
 
 router.get("/get-invoiceTerms", async (req, res) => {
   try {

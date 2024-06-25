@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Branch = require("../../Schemas/Branch/branch");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Branch = require("../../../Schemas/Branch/branch");
 
 router.post("/create-branch", async (req, res) => {
   const newBranch = new Branch(req.body);

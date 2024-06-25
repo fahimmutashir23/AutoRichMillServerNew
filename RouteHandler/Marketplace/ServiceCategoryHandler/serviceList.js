@@ -1,34 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Service = require("../../Schemas/Services/serviceList");
-const multer = require("multer");
-const path = require("path");
-const UPLOAD_FOLDER = "../../images";
+const loginCheck = require("../../../Middleware/checkLogin");
+const Service = require("../../../Schemas/Services/serviceList");
+const upload = require("../../../Utils/multerUpload");
+
 //----------------------- Multer -----------------//
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOAD_FOLDER);
-  },
-  filename: (req, file, cb) => {
-    if (file) {
-      const fileExt = path.extname(file.originalname);
-      const fileName =
-        file.originalname
-          .replace(fileExt, "")
-          .toLowerCase()
-          .split(" ")
-          .join("-") +
-        "-" +
-        Date.now();
-      console.log("🚀 ~ fileName:", fileName);
-      cb(null, fileName + fileExt);
-    }
-  },
-});
-var upload = multer({
-  storage: storage,
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, UPLOAD_FOLDER);
+//   },
+//   filename: (req, file, cb) => {
+//     if (file) {
+//       const fileExt = path.extname(file.originalname);
+//       const fileName =
+//         file.originalname
+//           .replace(fileExt, "")
+//           .toLowerCase()
+//           .split(" ")
+//           .join("-") +
+//         "-" +
+//         Date.now();
+//       cb(null, fileName + fileExt);
+//     }
+//   },
+// });
+
+// const upload = multer({
+//   storage: storage,
+// });
 
 
 //---------------------------------------------//
@@ -47,18 +46,22 @@ router.get("/get-service", async (req, res) => {
 });
 
 router.post("/create-service", upload.single("image"), async (req, res) => {
-  const newService = new Service(req.body);
-  console.log(newService);
   try {
-    const result = newService.save();
+    const newService = new Service(req.body);
+    newService.image = req.file ? req.file.filename : null
+
+    const result = await newService.save();
     res.status(200).json({
       success: true,
       message: "Service Post successfully",
       data: result,
     });
   } catch (error) {
-    console.log(error);
-    res.json(error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create service',
+      error: error.message,
+    });
   }
 });
 

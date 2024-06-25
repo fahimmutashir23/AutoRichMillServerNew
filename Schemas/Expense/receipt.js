@@ -33,13 +33,10 @@ const expenseReceiptSchema = new Schema({
     note: {
         type: String,
         required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
+    }
 },{
-    versionKey: false
+    versionKey: false,
+    timestamps: true
 });
 
 const ExpenseReceipt = model("ExpenseReceipt", expenseReceiptSchema);

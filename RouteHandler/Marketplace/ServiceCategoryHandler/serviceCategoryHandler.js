@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const ServiceCategory = require("../../Schemas/Services/categoryList");
+const loginCheck = require("../../../Middleware/checkLogin");
+const ServiceCategory = require("../../../Schemas/Services/categoryList");
 
 router.get("/get-serviceCategory", async (req, res) => {
   try {

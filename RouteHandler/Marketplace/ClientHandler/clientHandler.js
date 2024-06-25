@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const loginCheck = require("../../Middleware/checkLogin");
-const Client = require("../../Schemas/Client/client");
+const loginCheck = require("../../../Middleware/checkLogin");
+const Client = require("../../../Schemas/Client/client");
 
 router.get("/get-client-list", loginCheck, async (req, res) => {
   try {

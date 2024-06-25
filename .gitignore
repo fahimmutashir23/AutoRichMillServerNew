@@ -1,3 +1,5 @@
 node_modules
 .env
+groupName.json
+superAdmin.json
 
